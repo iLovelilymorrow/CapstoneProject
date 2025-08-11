@@ -1,6 +1,7 @@
 package com.example.capstoneproject.memberlogic;
 
 import android.os.Bundle;
+import android.util.Log;
 // Import NavGraph if you haven't already, though setGraph directly takes the resource ID
 // import androidx.navigation.NavGraph;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,14 +36,18 @@ public class MemberActivity extends AppCompatActivity
 
             // --- Get username from Intent and prepare arguments for NavGraph ---
             String username = getIntent().getStringExtra("USERNAME_EXTRA");
-            if (username == null) {
-                username = "Member"; // Default fallback username
-            }
-            Bundle startArgs = new Bundle();
-            startArgs.putString("username", username); // Key must match argument name in nav_graph
+            Log.d("MemberActivity", "Username from Intent: " + username);
 
-            // --- Set the graph for NavController with start destination arguments ---
-            // This line replaces the graph set via XML (app:navGraph) but ensures args are passed.
+            if (username == null) {
+                username = "IntentWasNull"; // More specific default for testing
+            }
+
+            Bundle startArgs = new Bundle();
+            // TEMPORARILY HARDCODE a value to ensure the bundle passing mechanism works
+            // startArgs.putString("username", username);
+            startArgs.putString("username", username);
+
+            Log.d("MemberActivity", "Setting graph with startArgs. Username in bundle: " + startArgs.getString("username"));
             navController.setGraph(R.navigation.member_nav_graph, startArgs);
 
 
