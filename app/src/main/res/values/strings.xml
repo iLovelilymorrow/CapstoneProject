@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">CapstoneProject</string>
+    <string name="Home">Home</string>
+    <string name="NewMember">New Member</string>
+    <string name="HeaderTitle">Art\'s Gym App</string>
+    <string name="HeaderSubtitle">Gym Management App</string>
+    <string name="Receipts">Receipts</string>
+    <string name="Account">Account</string>
+
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="email">Email</string>
+    <string name="age">Age</string>
+    <string name="birthday">Birthday</string>
+    <string name="gender">Gender</string>
+    <string name="membershipType">Membership Type</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="next">Next</string>
+    <string name="signout">Sign Out</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

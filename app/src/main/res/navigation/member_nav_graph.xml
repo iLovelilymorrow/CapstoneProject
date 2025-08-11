@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/member_nav_graph"
+    app:startDestination="@id/memberHomeFragment">
+
+    <fragment
+        android:id="@+id/memberHomeFragment"
+        android:name="com.example.capstoneproject.memberlogic.memberfragments.MemberHomeFragment"
+        android:label="Home"
+        tools:layout="@layout/member_home_fragment">
+
+        <argument
+            android:name="username"
+            app:argType="string"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/memberReceiptsFragment"
+        android:name="com.example.capstoneproject.memberlogic.memberfragments.MemberReceiptsFragment"
+        android:label="Receipts"
+        tools:layout="@layout/member_receipts_fragment"/>
+
+    <fragment
+        android:id="@+id/memberAccountFragment"
+        android:name="com.example.capstoneproject.memberlogic.memberfragments.MemberAccountFragment"
+        android:label="Account"
+        tools:layout="@layout/member_account_fragment"/>
+
+</navigation>

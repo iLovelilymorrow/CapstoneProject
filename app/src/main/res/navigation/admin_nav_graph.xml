@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_nav_graph"
+    app:startDestination="@id/adminHomeFragment">
+
+    <fragment
+        android:id="@+id/adminHomeFragment"
+        android:name="com.example.capstoneproject.adminlogic.adminfragments.AdminHomeFragment"
+        android:label="Home"
+        tools:layout="@layout/admin_home_fragment">
+
+        <argument
+            android:name="username"
+            app:argType="string"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminNewMemberFragment"
+        android:name="com.example.capstoneproject.adminlogic.adminfragments.AdminNewMemberFragment"
+        android:label="New Member"
+        tools:layout="@layout/admin_newmember_fragment"/>
+
+</navigation>
