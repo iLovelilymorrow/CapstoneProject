@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -96,8 +97,96 @@ public class AdminNewMemberFragment extends Fragment {
         setupMembershipDatePicker();
     }
 
-    private void setupMembershipDatePicker() {
+    private void registrationDateTextView_clickListener(SimpleDateFormat dateFormat)
+    {
+        registrationDateTextView.setOnClickListener(v ->
+        {
+            MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+            builder.setTitleText("Select Registration Date");
+            builder.setSelection(MaterialDatePicker.todayInUtcMilliseconds());
 
+            MaterialDatePicker<Long> datePicker = builder.build();
+            datePicker.addOnPositiveButtonClickListener(selection ->
+            {
+                Calendar selectedCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                selectedCal.setTimeInMillis(selection);
+                registrationDateTextView.setText(dateFormat.format(selectedCal.getTime()));
+
+                recalculateExpirationDate();
+            });
+
+            datePicker.show(getParentFragmentManager(), "REGISTRATION_DATE_PICKER_TAG");
+        });
+    }
+
+    private void expirationDateTextView_clickListener(SimpleDateFormat dateFormat)
+    {
+        expirationDateTextView.setOnClickListener(v ->
+        {
+            MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+            builder.setTitleText("Select Expiration Date");
+            builder.setSelection(MaterialDatePicker.todayInUtcMilliseconds());
+
+            MaterialDatePicker<Long> datePicker = builder.build();
+            datePicker.addOnPositiveButtonClickListener(selection ->
+            {
+                Calendar selectedCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                selectedCal.setTimeInMillis(selection);
+                expirationDateTextView.setText(dateFormat.format(selectedCal.getTime()));
+            });
+
+            datePicker.show(getParentFragmentManager(), "EXPIRATION_DATE_PICKER_TAG");
+        });
+    }
+
+    private void setupMembershipDatePicker()
+    {
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String todayFormatted = dateFormat.format(today.getTime());
+        registrationDateTextView.setText(todayFormatted);
+
+        registrationDateTextView_clickListener(dateFormat);
+
+        expirationDateTextView_clickListener(dateFormat);
+
+        membershipTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) return;
+                recalculateExpirationDate();
+            }
+
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+        });
+    }
+
+    private void recalculateExpirationDate()
+    {
+        int selectedIndex = membershipTypeSpinner.getSelectedItemPosition();
+        if(selectedIndex <= 0) return;
+
+        MembershipType selectedMembershipType = availableMembershipTypes.get(selectedIndex - 1);
+        int membershipDuration = selectedMembershipType.getDuration();
+
+        String registrationDateStr = registrationDateTextView.getText().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        try
+        {
+            Calendar registrationDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            registrationDate.setTime(dateFormat.parse(registrationDateStr));
+
+            registrationDate.add(Calendar.DAY_OF_YEAR, membershipDuration);
+
+            expirationDateTextView.setText(dateFormat.format(registrationDate.getTime()));
+        }
+        catch (Exception e)
+        {
+            Log.e("AdminNewMemberFragment", "Failed to parse registration date", e);
+        }
     }
 
     private void setupGenderSpinner()
