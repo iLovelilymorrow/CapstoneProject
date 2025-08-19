@@ -15,13 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.capstoneproject.adminlogic.AdminActivity;
 import com.example.capstoneproject.memberlogic.MemberActivity;
 
-// FirebaseAuth and FirebaseUser are no longer needed for the initial check here
-// import com.google.firebase.auth.FirebaseAuth;
-// import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "LoginActivity";
-
+public class LoginActivity extends AppCompatActivity
+{
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -36,10 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.login_layout);
 
-        // mAuth = FirebaseAuth.getInstance(); // Initialize if needed for direct login calls
         firebaseHelper = new FirebaseHelper(this);
-
-        // --- Persistence Check REMOVED from here ---
 
         initializeViews(); // Initialize views directly
 
@@ -77,7 +70,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // This method is still needed if login is successful from this activity
     private void redirectToRoleBasedActivity(String username, String userRole) {
         Intent intent;
         if ("admin".equalsIgnoreCase(userRole)) {

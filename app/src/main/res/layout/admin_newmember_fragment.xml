@@ -31,6 +31,14 @@
         android:singleLine="true"
         android:inputType="text"/>
 
+    <Spinner
+        android:id="@+id/genderSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/_200sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:entries="@array/gender"/>
+
     <TextView
         android:id="@+id/birthdayTextView"
         android:layout_width="wrap_content"
@@ -71,19 +79,63 @@
         android:inputType="phone"/>
 
     <Spinner
-        android:id="@+id/genderSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_3sdp"
-        android:entries="@array/gender"/>
-
-    <Spinner
         android:id="@+id/membershipTypeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/_200sdp"
         android:layout_marginTop="@dimen/_3sdp"/>
+
+    <TextView
+        android:id="@+id/registrationDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/_200sdp"
+        android:textSize="@dimen/_10sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:hint="@string/registrationdate"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:background="?attr/editTextBackground"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/expirationDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/_200sdp"
+        android:textSize="@dimen/_10sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:hint="@string/expirationdate"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:background="?attr/editTextBackground"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <RadioGroup
+        android:id="@+id/modeOfPaymentRadioGroup"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3sdp">
+
+        <RadioButton
+            android:id="@+id/cashRadioButton"
+            android:text="@string/cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/onlinePaymentRadioButton"
+            android:text="@string/onlinepayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"/>
+
+    </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextButton"

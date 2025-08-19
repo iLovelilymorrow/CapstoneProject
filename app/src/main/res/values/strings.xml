@@ -14,10 +14,21 @@
     <string name="birthday">Birthday</string>
     <string name="gender">Gender</string>
     <string name="membershipType">Membership Type</string>
+    <string name="selectMembershipType">Select Membership Type</string>
+    <string name="membershiptypename">Membership Type Name</string>
+    <string name="duration">Duration</string>
+    <string name="untildate">Until Date</string>
+    <string name="description">Description (Optional)</string>
+    <string name="price">Price</string>
     <string name="phoneNumber">Phone Number</string>
     <string name="next">Next</string>
+    <string name="create">Create</string>
     <string name="signout">Sign Out</string>
-
+    <string name="onlinepayment">Online Payment</string>
+    <string name="cash">Cash</string>
+    <string name="doesnotexpire">Does Not Expire</string>
+    <string name="registrationdate">Registration Date</string>
+    <string name="expirationdate">Expiration Date</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

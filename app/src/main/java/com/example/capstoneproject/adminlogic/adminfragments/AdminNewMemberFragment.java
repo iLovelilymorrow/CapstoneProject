@@ -1,26 +1,65 @@
 package com.example.capstoneproject.adminlogic.adminfragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.capstoneproject.FirebaseHelper;
 import com.example.capstoneproject.R;
+import com.example.capstoneproject.model.MembershipType;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 public class AdminNewMemberFragment extends Fragment {
 
     private TextView birthdayTextView;
+    private TextView registrationDateTextView;
+    private TextView expirationDateTextView;
+    private RadioGroup modeOfPaymentRadioGroup;
+    private MaterialButton nextButton;
+    private Spinner membershipTypeSpinner;
+    private Spinner genderSpinner;
+
+
     private Long selectedBirthDateInMillis = null;
+
+
+    private FirebaseHelper firebaseHelper;
+    private List<MembershipType> availableMembershipTypes;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        firebaseHelper = new FirebaseHelper(requireContext());
+        availableMembershipTypes = new ArrayList<>();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+
+        loadMembershipTypes();
+    }
 
     @Nullable
     @Override
@@ -28,9 +67,44 @@ public class AdminNewMemberFragment extends Fragment {
         View view = inflater.inflate(R.layout.admin_newmember_fragment, container, false); // Use your layout file name
 
         birthdayTextView = view.findViewById(R.id.birthdayTextView);
-        setupBirthdayPicker();
+        registrationDateTextView = view.findViewById(R.id.registrationDateTextView);
+        expirationDateTextView = view.findViewById(R.id.expirationDateTextView);
+        modeOfPaymentRadioGroup = view.findViewById(R.id.modeOfPaymentRadioGroup);
+        membershipTypeSpinner = view.findViewById(R.id.membershipTypeSpinner);
+        genderSpinner = view.findViewById(R.id.genderSpinner);
+        nextButton = view.findViewById(R.id.nextButton);
 
+        nextButton.setOnClickListener(v -> {
+            if(modeOfPaymentRadioGroup.getCheckedRadioButtonId() == R.id.cashRadioButton)
+            {
+
+            }
+            else
+            {
+
+            }
+        });
+
+        runAllSetup();
         return view;
+    }
+
+    private void runAllSetup()
+    {
+        setupBirthdayPicker();
+        setupGenderSpinner();
+        setupMembershipDatePicker();
+    }
+
+    private void setupMembershipDatePicker() {
+
+    }
+
+    private void setupGenderSpinner()
+    {
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.gender, android.R.layout.simple_spinner_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
     }
 
     private void setupBirthdayPicker() {
@@ -58,6 +132,51 @@ public class AdminNewMemberFragment extends Fragment {
         });
     }
 
+    private void loadMembershipTypes() {
+        firebaseHelper.fetchMembershipTypes(new FirebaseHelper.MembershipTypesCallback()
+        {
+            @Override
+            public void onSuccess(List<MembershipType> fetchedMembershipTypes)
+            {
+                availableMembershipTypes.clear();
+                availableMembershipTypes.addAll(fetchedMembershipTypes);
+
+                List<String> membershipTypeNames = new ArrayList<>();
+                membershipTypeNames.add(getString(R.string.selectMembershipType));
+
+                for (MembershipType membershipType : availableMembershipTypes)
+                {
+                    membershipTypeNames.add(membershipType.getName());
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, membershipTypeNames);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                membershipTypeSpinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Exception e)
+            {
+                Log.e("AdminNewMemberFragment", "Failed to load membership types", e);
+                Toast.makeText(requireContext(), "Error loading membership types: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public static int calculateAge(long birthDateInMillis)
+    {
+        Calendar birthCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        birthCal.setTimeInMillis(birthDateInMillis);
+
+        Calendar todayCal = Calendar.getInstance(TimeZone.getTimeZone("UTC")); // Or TimeZone.getDefault() if comparing with local "today"
+
+        int age = todayCal.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
+        if (todayCal.get(Calendar.DAY_OF_YEAR) < birthCal.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        return age;
+    }
+
     // When saving the member data:
     // You would use selectedBirthDateInMillis.
     // To store it in the database, you can:
@@ -74,19 +193,6 @@ public class AdminNewMemberFragment extends Fragment {
     //        // Now use birthDateForDb
     //    }
 
-    public static int calculateAge(long birthDateInMillis)
-    {
-        Calendar birthCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        birthCal.setTimeInMillis(birthDateInMillis);
-
-        Calendar todayCal = Calendar.getInstance(TimeZone.getTimeZone("UTC")); // Or TimeZone.getDefault() if comparing with local "today"
-
-        int age = todayCal.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
-        if (todayCal.get(Calendar.DAY_OF_YEAR) < birthCal.get(Calendar.DAY_OF_YEAR)) {
-            age--;
-        }
-        return age;
-    }
 
     // In your data saving logic, you'll use 'selectedBirthDateInMillis'
     // For example:

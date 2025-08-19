@@ -1,10 +1,16 @@
 package com.example.capstoneproject;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.example.capstoneproject.model.MembershipType;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirebaseHelper {
     private FirebaseAuth mAuth;
@@ -14,6 +20,16 @@ public class FirebaseHelper {
     public interface LoginCallback {
         void onSuccess(String userId, String username, String userRole); // Pass role if needed for navigation
         void onFailure(String errorMessage);
+    }
+
+    public interface MembershipTypesCallback {
+        void onSuccess(List<MembershipType> membershipTypes);
+        void onFailure(Exception e);
+    }
+
+    public interface GeneralCallback {
+        void onSuccess();
+        void onFailure(Exception e);
     }
 
     public FirebaseHelper(Context context) {
@@ -68,6 +84,36 @@ public class FirebaseHelper {
                         callback.onFailure("Failed to fetch user details: " + task.getException().getMessage());
                     }
                 });
+    }
+
+    public void createMembershipType(MembershipType membershipType, final GeneralCallback callback)
+    {
+        db.collection("membershiptype").add(membershipType).addOnSuccessListener(documentReference ->
+        {
+            Log.d("FirebaseHelper", "Membership type created with ID: " + documentReference.getId());
+            callback.onSuccess();
+        }).addOnFailureListener(e ->
+        {
+            Log.w("FirebaseHelper", "Error creating membership type", e);
+            callback.onFailure(e);
+        });
+    }
+
+    public void fetchMembershipTypes(final MembershipTypesCallback callback) {
+        db.collection("membershiptype").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<MembershipType> membershipTypeList = new ArrayList<>();
+            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments())
+            {
+                MembershipType membershipType = document.toObject(MembershipType.class);
+                membershipTypeList.add(membershipType);
+            }
+            callback.onSuccess(membershipTypeList);
+
+        }).addOnFailureListener(e ->
+        {
+            Log.e("FirebaseHelper", "Error getting membership types: " + e.getMessage(), e);
+            callback.onFailure(e);
+        });
     }
 
     public FirebaseUser getCurrentUser() {

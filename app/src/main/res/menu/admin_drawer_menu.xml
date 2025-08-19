@@ -12,8 +12,12 @@
             android:title="@string/NewMember"/>
 
         <item
+            android:id="@+id/adminMembershipTypeFragment"
+            android:title="@string/membershipType"/>
+
+        <item
             android:id="@+id/nav_admin_sign_out"
-            android:title="Sign Out" />
+            android:title="@string/signout"/>
 
     </group>
 </menu>

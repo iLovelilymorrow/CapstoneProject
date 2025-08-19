@@ -23,4 +23,26 @@
         android:label="New Member"
         tools:layout="@layout/admin_newmember_fragment"/>
 
+    <fragment
+        android:id="@+id/adminMembershipTypeFragment"
+        android:name="com.example.capstoneproject.adminlogic.adminfragments.AdminMembershipTypeFragment"
+        android:label="Membership Type"
+        tools:layout="@layout/admin_membershiptype_fragment"/>
+
+    <fragment
+        android:id="@+id/adminPaymentFragment"
+        android:name="com.example.capstoneproject.adminlogic.adminfragments.AdminPaymentFragment"
+        android:label="Payment"
+        tools:layout="@layout/admin_payment_fragment">
+
+        <argument
+            android:name="paymentMethod"
+            app:argType="string"/>
+
+    </fragment>
+
+    <action
+        android:id="@+id/action_adminNewMemberFragment_to_adminPaymentFragment"
+        app:destination="@+id/adminPaymentFragment"/>
+
 </navigation>
