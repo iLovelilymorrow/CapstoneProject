@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.capstoneproject.LoginActivity;
+import com.example.capstoneproject.loginlogic.LoginActivity;
 import com.example.capstoneproject.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder; // Import MaterialAlertDialogBuilder

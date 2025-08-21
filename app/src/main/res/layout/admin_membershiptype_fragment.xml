@@ -48,9 +48,8 @@
 
     <EditText
         android:id="@+id/descriptionEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
-        android:minWidth="@dimen/_200sdp"
         android:textSize="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_2sdp"
         android:hint="@string/description"

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.capstoneproject.FirebaseHelper;
+import com.example.capstoneproject.helper.FirebaseHelper;
 import com.example.capstoneproject.R;
 import com.example.capstoneproject.model.MembershipType;
 import com.google.android.material.button.MaterialButton;
@@ -29,13 +31,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class AdminNewMemberFragment extends Fragment {
-
+public class AdminNewMemberFragment extends Fragment
+{
+    private LinearLayout existingCustomerLayout;
+    private EditText memberIdEditText;
+    private LinearLayout newCustomerLayout;
     private TextView birthdayTextView;
     private TextView registrationDateTextView;
     private TextView expirationDateTextView;
     private RadioGroup modeOfPaymentRadioGroup;
     private MaterialButton nextButton;
+    private Spinner customerCategorySpinner;
     private Spinner membershipTypeSpinner;
     private Spinner genderSpinner;
 
@@ -64,13 +70,18 @@ public class AdminNewMemberFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.admin_newmember_fragment, container, false); // Use your layout file name
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
+        View view = inflater.inflate(R.layout.admin_newmember_fragment, container, false);
 
+        existingCustomerLayout = view.findViewById(R.id.existingCustomerLayout);
+        memberIdEditText = view.findViewById(R.id.memberIdEditText);
+        newCustomerLayout = view.findViewById(R.id.newCustomerLayout);
         birthdayTextView = view.findViewById(R.id.birthdayTextView);
         registrationDateTextView = view.findViewById(R.id.registrationDateTextView);
         expirationDateTextView = view.findViewById(R.id.expirationDateTextView);
         modeOfPaymentRadioGroup = view.findViewById(R.id.modeOfPaymentRadioGroup);
+        customerCategorySpinner = view.findViewById(R.id.customerCategorySpinner);
         membershipTypeSpinner = view.findViewById(R.id.membershipTypeSpinner);
         genderSpinner = view.findViewById(R.id.genderSpinner);
         nextButton = view.findViewById(R.id.nextButton);
@@ -92,12 +103,42 @@ public class AdminNewMemberFragment extends Fragment {
 
     private void runAllSetup()
     {
+        setupCategorySpinner();
+        setupCustomerCategorySpinnerListener();
         setupBirthdayPicker();
         setupGenderSpinner();
         setupMembershipDatePicker();
     }
+    private void setupCustomerCategorySpinnerListener()
+    {
+        customerCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id)
+            {
+                if (position == 0)
+                {
+                    newCustomerLayout.setVisibility(View.GONE);
+                    nextButton.setEnabled(false);
+                }
+                else if (position == 1)
+                {
+                    existingCustomerLayout.setVisibility(View.VISIBLE);
+                    nextButton.setEnabled(true);
+                }
+                else
+                {
+                    newCustomerLayout.setVisibility(View.VISIBLE);
+                    nextButton.setEnabled(true);
+                }
+            }
 
-    private void registrationDateTextView_clickListener(SimpleDateFormat dateFormat)
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+        });
+    }
+
+    private void setupRegistrationDateClickListener(SimpleDateFormat dateFormat)
     {
         registrationDateTextView.setOnClickListener(v ->
         {
@@ -119,7 +160,7 @@ public class AdminNewMemberFragment extends Fragment {
         });
     }
 
-    private void expirationDateTextView_clickListener(SimpleDateFormat dateFormat)
+    private void setupExpirationDateClickListener(SimpleDateFormat dateFormat)
     {
         expirationDateTextView.setOnClickListener(v ->
         {
@@ -146,16 +187,28 @@ public class AdminNewMemberFragment extends Fragment {
         String todayFormatted = dateFormat.format(today.getTime());
         registrationDateTextView.setText(todayFormatted);
 
-        registrationDateTextView_clickListener(dateFormat);
+        setupRegistrationDateClickListener(dateFormat);
 
-        expirationDateTextView_clickListener(dateFormat);
+        setupExpirationDateClickListener(dateFormat);
 
         membershipTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
-            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) return;
-                recalculateExpirationDate();
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id)
+            {
+                Log.d("AdminNewMemberFragment", "Position is : " + position);
+
+                if (position == 0)
+                {
+                    registrationDateTextView.setVisibility(View.GONE);
+                    expirationDateTextView.setVisibility(View.GONE);
+                }
+                else
+                {
+                    recalculateExpirationDate();
+                    registrationDateTextView.setVisibility(View.VISIBLE);
+                    expirationDateTextView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -187,6 +240,13 @@ public class AdminNewMemberFragment extends Fragment {
         {
             Log.e("AdminNewMemberFragment", "Failed to parse registration date", e);
         }
+    }
+
+    private void setupCategorySpinner()
+    {
+        ArrayAdapter<CharSequence> customerCategoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.customer_type, android.R.layout.simple_spinner_item);
+        customerCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        customerCategorySpinner.setAdapter(customerCategoryAdapter);
     }
 
     private void setupGenderSpinner()
@@ -308,4 +368,3 @@ public class AdminNewMemberFragment extends Fragment {
     //     // ...
     // }
 }
-

@@ -13,6 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.capstoneproject.adminlogic.AdminActivity;
+import com.example.capstoneproject.helper.FirebaseHelper;
+import com.example.capstoneproject.loginlogic.LoginActivity;
 import com.example.capstoneproject.memberlogic.MemberActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

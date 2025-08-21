@@ -7,140 +7,178 @@
     android:layout_margin="@dimen/_25sdp"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/firstNameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_10sdp"
-        android:minWidth="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-
-        android:hint="@string/firstname"
-        android:singleLine="true"
-        android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/lastNameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_10sdp"
-        android:minWidth="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-
-        android:hint="@string/lastname"
-        android:singleLine="true"
-        android:inputType="text"/>
-
     <Spinner
-        android:id="@+id/genderSpinner"
+        android:id="@+id/customerCategorySpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_3sdp"
-        android:entries="@array/gender"/>
+        android:minWidth="@dimen/_200sdp"/>
 
-    <TextView
-        android:id="@+id/birthdayTextView"
+    <LinearLayout
+        android:id="@+id/existingCustomerLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="@dimen/_200sdp"
-        android:textSize="@dimen/_10sdp"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:hint="@string/birthday"
-        android:textAppearance="?attr/textAppearanceBody1"
-        android:background="?attr/editTextBackground"
-        android:clickable="true"
-        android:focusable="true" />
+        android:visibility="gone"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/emailEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_10sdp"
-        android:minWidth="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-
-        android:hint="@string/email"
-        android:singleLine="true"
-        android:inputType="textEmailAddress"/>
-
-    <EditText
-        android:id="@+id/phoneNumberEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_10sdp"
-        android:minWidth="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-
-        android:hint="@string/phoneNumber"
-        android:singleLine="true"
-        android:inputType="phone"/>
-
-    <Spinner
-        android:id="@+id/membershipTypeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_3sdp"/>
-
-    <TextView
-        android:id="@+id/registrationDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="@dimen/_200sdp"
-        android:textSize="@dimen/_10sdp"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:hint="@string/registrationdate"
-        android:textAppearance="?attr/textAppearanceBody1"
-        android:background="?attr/editTextBackground"
-        android:clickable="true"
-        android:focusable="true" />
-
-    <TextView
-        android:id="@+id/expirationDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="@dimen/_200sdp"
-        android:textSize="@dimen/_10sdp"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:hint="@string/expirationdate"
-        android:textAppearance="?attr/textAppearanceBody1"
-        android:background="?attr/editTextBackground"
-        android:clickable="true"
-        android:focusable="true" />
-
-    <RadioGroup
-        android:id="@+id/modeOfPaymentRadioGroup"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_3sdp">
-
-        <RadioButton
-            android:id="@+id/cashRadioButton"
-            android:text="@string/cash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <RadioButton
-            android:id="@+id/onlinePaymentRadioButton"
-            android:text="@string/onlinepayment"
+        <EditText
+            android:id="@+id/memberIdEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"/>
+            android:textSize="@dimen/_10sdp"
+            android:minWidth="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_2sdp"
 
-    </RadioGroup>
+            android:hint="@string/firstname"
+            android:singleLine="true"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/newCustomerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/firstNameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:minWidth="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+
+            android:hint="@string/firstname"
+            android:singleLine="true"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/lastNameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:minWidth="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+
+            android:hint="@string/lastname"
+            android:singleLine="true"
+            android:inputType="text"/>
+
+        <Spinner
+            android:id="@+id/genderSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_3sdp"/>
+
+        <TextView
+            android:id="@+id/birthdayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/_200sdp"
+            android:textSize="@dimen/_10sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:hint="@string/birthday"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:background="?attr/editTextBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:minWidth="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+
+            android:hint="@string/email"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"/>
+
+        <EditText
+            android:id="@+id/phoneNumberEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:minWidth="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+
+            android:hint="@string/phoneNumber"
+            android:singleLine="true"
+            android:inputType="phone"/>
+
+        <Spinner
+            android:id="@+id/membershipTypeSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_3sdp"/>
+
+        <TextView
+            android:id="@+id/registrationDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/_200sdp"
+            android:textSize="@dimen/_10sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:hint="@string/registrationdate"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:background="?attr/editTextBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/expirationDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/_200sdp"
+            android:textSize="@dimen/_10sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:hint="@string/expirationdate"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:background="?attr/editTextBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"/>
+
+        <RadioGroup
+            android:id="@+id/modeOfPaymentRadioGroup"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp">
+
+            <RadioButton
+                android:id="@+id/cashRadioButton"
+                android:text="@string/cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/onlinePaymentRadioButton"
+                android:text="@string/onlinepayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:layout_marginTop="@dimen/_30sdp"
         android:text="@string/next"/>
 

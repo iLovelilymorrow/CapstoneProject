@@ -1,4 +1,4 @@
-package com.example.capstoneproject;
+package com.example.capstoneproject.helper;
 
 import android.content.Context;
 import android.util.Log;

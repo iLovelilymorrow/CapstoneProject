@@ -1,4 +1,4 @@
-package com.example.capstoneproject;
+package com.example.capstoneproject.loginlogic;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.capstoneproject.helper.FirebaseHelper;
+import com.example.capstoneproject.R;
 import com.example.capstoneproject.adminlogic.AdminActivity;
 import com.example.capstoneproject.memberlogic.MemberActivity;
 
@@ -84,7 +86,7 @@ public class LoginActivity extends AppCompatActivity
     }
 
     private void initializeViews() {
-        emailEditText = findViewById(R.id.usernameEditText);
+        emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.button2);
         signupButton = findViewById(R.id.button);

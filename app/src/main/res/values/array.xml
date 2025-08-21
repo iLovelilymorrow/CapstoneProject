@@ -7,6 +7,12 @@
         <item>Female</item>
     </string-array>
 
+    <string-array name="customer_type">
+        <item>Select Gender</item>
+        <item>Existing Member</item>
+        <item>New Member</item>
+    </string-array>
+
     <string-array name="month_array">
         <item>N/A</item>
         <item>January</item>

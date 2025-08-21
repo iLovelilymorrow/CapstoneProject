@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 // Import MaterialAlertDialogBuilder for the dialog
-import com.example.capstoneproject.LoginActivity;
+import com.example.capstoneproject.loginlogic.LoginActivity;
 import com.example.capstoneproject.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,7 +71,7 @@ public class AdminActivity extends AppCompatActivity {
         toggle.syncState();
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.adminHomeFragment, R.id.adminNewMemberFragment
+                R.id.adminHomeFragment, R.id.adminNewMemberFragment, R.id.adminMembershipTypeFragment
         )
                 .setOpenableLayout(drawerLayout)
                 .build();

@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.capstoneproject.FirebaseHelper;
+import com.example.capstoneproject.helper.FirebaseHelper;
 import com.example.capstoneproject.R;
 import com.example.capstoneproject.model.MembershipType;
 import com.google.android.material.button.MaterialButton;
@@ -22,7 +22,6 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
