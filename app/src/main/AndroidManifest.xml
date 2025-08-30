@@ -22,7 +22,8 @@
         </activity>
 
         <activity android:name=".loginlogic.LoginActivity" android:exported="false"/>
-        <activity android:name=".signup.SignupActivity" android:exported="false"/>
+        <activity android:name=".signuplogic.SignupActivity" android:exported="false"/>
+        <activity android:name=".signuplogic.VerificationActivity" android:exported="false"/>
 
         <activity android:name=".adminlogic.AdminActivity" android:exported="false"/>
         <activity android:name=".memberlogic.MemberActivity" android:exported="false"/>

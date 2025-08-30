@@ -50,30 +50,32 @@ public class activity_splash extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser(); // Or firebaseHelper.getCurrentUser()
 
         if (currentUser != null) {
-            // User is signed in, fetch details and redirect
-            Log.d(TAG, "User " + currentUser.getUid() + " is already logged in. Fetching details...");
-            firebaseHelper.fetchUserDetails(currentUser.getUid(), new FirebaseHelper.LoginCallback() {
-                @Override
-                public void onSuccess(String userId, String username, String userRole) {
-                    Log.d(TAG, "Fetched details for auto-login: User: " + username + ", Role: " + userRole);
-                    redirectToRoleBasedActivity(username, userRole);
-                }
+            currentUser.reload().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    if (!currentUser.isEmailVerified()) {
+                        mAuth.signOut();
+                        navigateToLogin();
+                        Toast.makeText(this, "Please verify your email before logging in.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
-                @Override
-                public void onFailure(String errorMessage) {
-                    Log.e(TAG, "Auto-login: Failed to fetch user details: " + errorMessage);
-                    // Critical failure to get details for an active session.
-                    // Option 1: Go to Login (user might need to re-auth or there's a data issue)
+                    firebaseHelper.fetchUserDetails(currentUser.getUid(), new FirebaseHelper.LoginCallback() {
+                        @Override
+                        public void onSuccess(String userId, String username, String userRole) {
+                            redirectToRoleBasedActivity(username, userRole);
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            Log.e(TAG, "Login failed: " + errorMessage);
+                            navigateToLogin();
+                        }
+                    });
+                } else {
                     navigateToLogin();
-                    // Option 2: You could sign them out here if details are absolutely critical for app function
-                    // mAuth.signOut();
-                    // navigateToLogin();
-                    Toast.makeText(activity_splash.this, "Session active, but failed to load details. Please log in.", Toast.LENGTH_LONG).show();
                 }
             });
         } else {
-            // No user is signed in
-            Log.d(TAG, "No user logged in. Navigating to LoginActivity.");
             navigateToLogin();
         }
     }

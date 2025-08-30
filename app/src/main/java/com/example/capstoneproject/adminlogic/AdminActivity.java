@@ -1,6 +1,5 @@
 package com.example.capstoneproject.adminlogic;
 
-// Import DialogInterface for the dialog callbacks
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;

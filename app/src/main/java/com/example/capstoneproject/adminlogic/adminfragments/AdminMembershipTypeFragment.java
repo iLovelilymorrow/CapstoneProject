@@ -100,15 +100,28 @@ public class AdminMembershipTypeFragment extends Fragment
              selectedUntilDate = new Timestamp(date);
          }
 
-         MembershipType newMembershipType = new MembershipType(
-                 membershipTypeName,
-                 duration,
-                 description,
-                 price,
-                 selectedUntilDate
-         );
+         Timestamp finalSelectedUntilDate = selectedUntilDate;
+         firebaseHelper.generateMembershipTypeID(new FirebaseHelper.GenerateIdCallback() {
+             @Override
+             public void onGenerated(String membershipTypeID) {
+                 MembershipType newMembershipType = new MembershipType(
+                         membershipTypeID,
+                         membershipTypeName,
+                         duration,
+                         description,
+                         price,
+                         finalSelectedUntilDate
+                 );
 
-         attemptSaveMembershipType(newMembershipType);
+                 attemptSaveMembershipType(newMembershipType);
+             }
+
+             @Override
+             public void onError(Exception e) {
+                 Log.e("FirebaseHelper", "Failed to generate MembershipTypeID", e);
+                 Toast.makeText(requireContext(), "Error generating ID: " + e.getMessage(), Toast.LENGTH_LONG).show();
+             }
+         });
      }
 
      private void attemptSaveMembershipType(MembershipType newMembershipType)

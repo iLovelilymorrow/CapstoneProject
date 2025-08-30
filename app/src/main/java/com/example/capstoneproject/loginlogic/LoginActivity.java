@@ -16,6 +16,7 @@ import com.example.capstoneproject.helper.FirebaseHelper;
 import com.example.capstoneproject.R;
 import com.example.capstoneproject.adminlogic.AdminActivity;
 import com.example.capstoneproject.memberlogic.MemberActivity;
+import com.example.capstoneproject.signuplogic.SignupActivity;
 
 
 public class LoginActivity extends AppCompatActivity
@@ -44,33 +45,18 @@ public class LoginActivity extends AppCompatActivity
             return insets;
         });
 
-        loginButton.setOnClickListener(v -> {
-            String email = emailEditText.getText().toString().trim();
-            String password = passwordEditText.getText().toString().trim();
+        loginButton.setOnClickListener(v ->
+        {
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            firebaseHelper.loginUser(email, password, new FirebaseHelper.LoginCallback() {
-                @Override
-                public void onSuccess(String userId, String username, String userRole) {
-                    Toast.makeText(LoginActivity.this, "Login Successful. Welcome " + username, Toast.LENGTH_SHORT).show();
-                    redirectToRoleBasedActivity(username, userRole); // This method remains
-                }
-
-                @Override
-                public void onFailure(String errorMessage) {
-                    Toast.makeText(LoginActivity.this, "Login Failed: " + errorMessage, Toast.LENGTH_LONG).show();
-                }
-            });
         });
 
-        signupButton.setOnClickListener(v -> {
-            Toast.makeText(this, "Signup Clicked (Implement SignupActivity)", Toast.LENGTH_SHORT).show();
+        signupButton.setOnClickListener(v ->
+        {
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
         });
     }
+    //sign in cretion of user in "users"
 
     private void redirectToRoleBasedActivity(String username, String userRole) {
         Intent intent;
